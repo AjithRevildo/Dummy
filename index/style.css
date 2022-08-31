@@ -1,0 +1,15 @@
+.fa-plus-circle{
+    font-size: 40px;
+    color:rgb(24, 122, 90)
+}
+.fa-minus-circle {
+    font-size: 40px;
+    color: rgb(24, 122, 90)
+}
+#colorVariant{
+    background-color: rgb(24, 122, 90);
+    color:white;
+    border-radius: 10px;
+    border:2px solid white;
+    padding: 10px;
+}

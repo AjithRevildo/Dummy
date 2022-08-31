@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+
+
+<head>
+    <meta charset="utf-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body style="text-align: center;">
+
+    <form class="">
+        <div class="container">
+            <div class="row" id="one">
+                <div class="col-sm-5"><label for="theme name">Theme Name</label>
+                    <input name='normal' class="form-control" autofocus>
+                </div>
+                <div class="col-sm-5">
+                    <label for="theme name">Theme Attributes</label>
+                    <input name='tags' class="form-control" value="black,blue" autofocus
+                        placeholder="values separated by comma">
+                </div>
+                <div class="col-sm-1 pt-4">
+                    <i class="fa fa-plus-circle" onclick="revil()"></i>
+                </div>
+                <div class="col-sm-1 pt-4"><i class="fa fa-minus-circle" id="oneid"></i></div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row" id="two">
+                <div class="col-sm-5"><label for="theme name">Theme Name</label>
+                    <input name='normal' class="form-control" autofocus>
+                </div>
+                <div class="col-sm-5"><label for="theme name">Theme Attributes</label>
+                    <input name='tags1' class="form-control" autofocus placeholder="values separated by comma"
+                        value="small,medium,large">
+                </div>
+                <div class="col-sm-1 pt-4"><i class="fa fa-plus-circle"  onclick="revil()"></i>
+                </div>
+                <div class="col-sm-1 pt-4"><i class="fa fa-minus-circle" id="twoid"></i></div>
+            </div>
+        </div>
+        <div class="container" id="app"></div>
+    </form>
+    <div class="container"><div class="pt-4 row"><div class="col-sm-10"></div><button class="btn-block col-sm-2" onclick="create_variant()"id="colorVariant">Genrate Varaints</button></div></div>
+
+    <br>
+
+
+    <div id="mydata">
+        <b>Product Variants</b>
+        <table id="myTableData" class="table table-hover">
+            <tr>
+                <td class="text-start"><b>Variant</b></td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/@yaireo/tagify"></script>
+<script src="https://unpkg.com/@yaireo/tagify@3.1.0/dist/tagify.polyfills.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+        var k =[];
+        function create_variant() {
+            regex = /[a-zA-Z]+/gi;
+            var color = document.getElementsByName('tags');
+            var size = document.getElementsByName('tags1');
+            var color_array =(color[0].value);
+            const array1 = color_array.match(regex)
+            let final_array=[]
+            for(let i = 0;i< array1.length;i++){
+                if(array1[i]!="value"){
+                    final_array.push(array1[i])
+                }
+            }
+            console.log(final_array)
+            
+            var size_array = size[0].value;
+            const array2 = size_array.match(regex)
+            let final_array2 = []
+            for (let i = 0; i < array2.length; i++) {
+                if (array2[i] != "value") {
+                    final_array2.push(array2[i])
+                }
+            }
+            console.log(final_array2)
+            for (let i = 0; i < final_array.length; i++) {
+                for (let j = 0; j < final_array2.length; j++) {
+                    k.push(final_array[i] +"-"+final_array2[j])
+                }
+            }
+            var myName = k;
+            var table = document.getElementById("myTableData");
+            var rowCount = table.rows.length;
+            console.log(rowCount)
+            var row = table.insertRow(rowCount);
+
+            for (let i = 0; i < myName.length; i++) {
+                row.insertCell(0).innerHTML = myName[i];
+            }
+            k = [];
+        }
+
+
+        function revil() {
+                $("#app").append(`<div class="row" id="three"><div class="col-sm-5"><label for="theme name">Theme Name</label>
+                    <input name='normal' class="form-control" autofocus>
+                </div>
+                <div class="col-sm-5">
+                    <label for="theme name">Theme Attributes</label>
+                    <input name='tags' class="form-control" autofocus placeholder="values separated by comma">
+                </div>
+                <div class="col-sm-1 pt-4">
+                <i class="fa fa-plus-circle plus" onclick="revil()"></i>
+                </div>
+                <div class="col-sm-1 pt-4"><i class="fa fa-minus-circle" id="threeid"onclick="remove_three"></i></div></div>`);
+            }
+</script>
+
+<script>
+    // The DOM element you wish to replace with Tagify
+    var input = document.querySelector('input[name=tags]');
+    // initialize Tagify on the above input node reference
+    new Tagify(input)
+</script>
+<script>
+    var input = document.querySelector('input[name=tags1]');
+    new Tagify(input)
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#oneid").click(function () {
+            $("#one").remove();
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $("#twoid").click(function () {
+            $("#two").remove();
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $("#threeid").click(function () {
+            $("#three").remove();
+        });
+    });
+</script>
+
+</html>
